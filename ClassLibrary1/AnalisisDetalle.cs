@@ -28,12 +28,11 @@ namespace ClassLibrary1
 
         }
 
-        public AnalisisDetalle(int iD, int analisisID, int tipoAnalisisID, TipoAnalisis tipo)
+        public AnalisisDetalle( int tipoAnalisisID )
         {
-            ID = iD;
-            AnalisisID = analisisID;
+
             TipoAnalisisID = tipoAnalisisID;
-            Tipo = tipo;
+           
         }
     }
 }
