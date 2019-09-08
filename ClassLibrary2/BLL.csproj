@@ -48,11 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalisisRepositorio.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositorioBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Entities.csproj">
+      <Project>{6304FFAF-3ADA-44B2-9D45-B51B75F1EB37}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{CD66C1E1-D45D-46B5-8E57-76732F8E9202}</Project>
       <Name>DAL</Name>
