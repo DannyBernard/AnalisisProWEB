@@ -22,6 +22,19 @@ namespace WebApplicationanalisis.Registro
         int a = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                EnableViewState = true;
+                ViewState.Add("Detalle", detalles);
+                ViewState.Add("Analisis", analisis);
+                ViewState.Add("Index", a);
+
+              
+            }
+            else
+            {
+                detalles = (List<AnalisisDetalle>)ViewState["Detalle"];
+            }
 
         }
 
@@ -39,7 +52,7 @@ namespace WebApplicationanalisis.Registro
 
         private Analisis LlenaClase()
         {
-            Analisis analisis = new Analisis();
+            // Analisis analisis = new Analisis();
             analisis = (Analisis)ViewState["Analisis"];
 
             analisis.AnalisisID = Utils.ToInt(idTextBox.Text);
@@ -58,7 +71,7 @@ namespace WebApplicationanalisis.Registro
             DetalleGridView.DataBind();
         }
 
-        private void LlenarCampo( Analisis analisis)
+        private void LlenarCampo(Analisis analisis)
         {
             tipoDropDownList.DataSource = repositorio.GetList(x => true);
             tipoDropDownList.DataValueField = "ID";
@@ -102,18 +115,18 @@ namespace WebApplicationanalisis.Registro
             Analisis analisis = new Analisis();
             analisis = (Analisis)ViewState["Analisis"];
 
-          //  analisis.detalle.Add(new AnalisisDetalle(tipoDropDownList.SelectedIndex = 0));
+            analisis.detalle.Add(new AnalisisDetalle(tipoDropDownList.SelectedIndex = 0));
             ViewState["detalle"] = analisis.detalle;
             this.BindGrid();
             DetalleGridView.Columns[1].Visible = false;
 
         }
 
-        
+
 
         protected void RemoveLinkButton_Click(object sender, EventArgs e)
         {
-            if(DetalleGridView.Rows.Count>0 && DetalleGridView.SelectedIndex >= 0)
+            if (DetalleGridView.Rows.Count > 0 && DetalleGridView.SelectedIndex >= 0)
             {
                 int indice = int.Parse(ViewState["Index"].ToString());
                 detalles.RemoveAt(indice);
@@ -133,7 +146,64 @@ namespace WebApplicationanalisis.Registro
 
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
+            AnalisisRepositorio repositorio = new AnalisisRepositorio();
+            Analisis analisis = repositorio.Buscar(Utils.ToInt(idTextBox.Text));
 
+
+            if (analisis == null)
+            {
+                if (repositorio.Guardar(LlenaClase()))
+                {
+
+                    Utils.ShowToastr(this.Page, "Guardado con exito!!", "Guardado", "success");
+                    Limpiar();
+                }
+                else
+                {
+                    Utils.ShowToastr(this.Page, "Revisar todos los campo", "Error", "error");
+                    Limpiar();
+                }
+
+            }
+            else
+            {
+                if (repositorio.Modificar(LlenaClase()))
+                {
+                    Utils.ShowToastr(this.Page, "Modificado con exito!!", "Guardado", "success");
+                    Limpiar();
+                }
+                else
+                {
+                    Utils.ShowToastr(this.Page, "Revisar todos los campo", "Error", "error");
+                    Limpiar();
+                }
+            }
+        }
+
+        protected void EliminarButton_Click(object sender, EventArgs e)
+        {
+            GridViewRow grid = DetalleGridView.SelectedRow;
+            List<AnalisisDetalle> lista = (List<AnalisisDetalle>)ViewState["Detalle"];
+            RepositorioBase<Analisis> repositorio = new RepositorioBase<Analisis>();
+            Analisis analisis = repositorio.Buscar(Utils.ToInt(idTextBox.Text));
+
+            if (IsValid)
+            {
+                if (analisis != null)
+                {
+                    repositorio.Eliminar(analisis.AnalisisID);
+                    DetalleGridView.DataSource = ViewState["Detalle"];
+                    DetalleGridView.DataBind();
+
+                    Utils.ShowToastr(this.Page, "Eliminado con exito!!", "Eliminado", "success");
+                    Limpiar();
+                }
+                else
+                {
+                    Utils.ShowToastr(this.Page, "Revisar todos los campo", "Error", "error");
+                    Limpiar();
+                }
+            }
         }
     }
 }

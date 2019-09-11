@@ -15,6 +15,7 @@ namespace Entities
         public int AnalisisID { get; set; }
         [StringLength(100)]
         public string  Descripcion { get; set; }
+        public string paciente { get; set; }
        
 
         public Analisis(int analisisID,string descripcion) { 
