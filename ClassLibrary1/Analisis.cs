@@ -16,7 +16,9 @@ namespace Entities
         [StringLength(100)]
         public string  Descripcion { get; set; }
         public string paciente { get; set; }
-       
+        public float Balance { get; set; }
+        public float Monto { get; set; }
+
 
         public Analisis(int analisisID,string descripcion) { 
             AnalisisID = analisisID;
@@ -29,12 +31,13 @@ namespace Entities
         public Analisis()
         {
             this.detalle = new List<AnalisisDetalle>();
+            AnalisisID = 0;
+            Descripcion = string.Empty;
+            Balance = 0;
+            Monto = 0;
         }
 
-        public void AgregarDetalle(int id, int analisisID, string descripcion)
-        {
-
-        }
+       
 
     }
 }

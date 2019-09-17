@@ -77,6 +77,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Default.aspx" />
     <Content Include="Registro\RAnalisi.aspx" />
+    <Content Include="Registro\RegistroPago.aspx" />
     <Content Include="Registro\RtiposAnalisis.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -130,6 +131,13 @@
     </Compile>
     <Compile Include="Registro\RAnalisi.aspx.designer.cs">
       <DependentUpon>RAnalisi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registro\RegistroPago.aspx.cs">
+      <DependentUpon>RegistroPago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registro\RegistroPago.aspx.designer.cs">
+      <DependentUpon>RegistroPago.aspx</DependentUpon>
     </Compile>
     <Compile Include="Registro\RtiposAnalisis.aspx.cs">
       <DependentUpon>RtiposAnalisis.aspx</DependentUpon>
